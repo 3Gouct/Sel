@@ -19,46 +19,45 @@ class CallbackTest {
 
     @BeforeAll
     static void setupAll() {
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver ().setup ();
     }
 
 
     @Test
-    public void test () {
+    public void russianLettersAndASpace() {
         driver.get ("http://localhost:9999");
-        driver.findElement (By.cssSelector ("span[data-test-id='name'] input")).sendKeys ("Иванов Иван");
-        driver.findElement (By.cssSelector ("span[data-test-id='phone'] input")).sendKeys ("+79999999999");
-        driver.findElement (By.className ("checkbox__box")).click();
-        driver.findElement (By.className ("button_view_extra")).click ();
-        String text = driver.findElement (By.className ("paragraph")).getText ();
+        driver.findElement (By.cssSelector ("[data-test-id='name'] input")).sendKeys ("Иванов Иван");
+        driver.findElement (By.cssSelector ("[data-test-id='phone'] input")).sendKeys ("+79999999999");
+        driver.findElement (By.cssSelector ("[data-test-id='agreement']")).click ();
+        driver.findElement (By.cssSelector ("[type=button]")).click ();
+        String text = driver.findElement (By.cssSelector ("[data-test-id=order-success]")).getText ();
         assertEquals ("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim ());
     }
 
     @Test
-    public void test1 () {
+    public void russianLettersHyphenAndSpace() {
         driver.get ("http://localhost:9999");
-        driver.findElement (By.cssSelector ("span[data-test-id='name'] input")).sendKeys ("Иванова-Петрова Наталья");
-        driver.findElement (By.cssSelector ("span[data-test-id='phone'] input")).sendKeys ("+79999999999");
-        driver.findElement (By.className ("checkbox__box")).click();
-        driver.findElement (By.className ("button_view_extra")).click ();
-        String text = driver.findElement (By.className ("paragraph")).getText ();
+        driver.findElement (By.cssSelector ("[data-test-id='name'] input")).sendKeys ("Иванова-Петрова Наталья");
+        driver.findElement (By.cssSelector ("[data-test-id='phone'] input")).sendKeys ("+79999999999");
+        driver.findElement (By.cssSelector ("[data-test-id='agreement']")).click ();
+        driver.findElement (By.cssSelector ("[type=button]")).click ();
+        String text = driver.findElement (By.cssSelector ("[data-test-id=order-success]")).getText ();
         assertEquals ("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim ());
     }
 
     @BeforeEach
-    public void setUp () {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
-        driver.get ("http://localhost:9999");
+    public void setUp() {
+        ChromeOptions options = new ChromeOptions ();
+        options.addArguments ("--disable-dev-shm-usage");
+        options.addArguments ("--no-sandbox");
+        options.addArguments ("--headless");
+        driver = new ChromeDriver (options);
     }
 
     @AfterEach
     public void tearDown() {
         driver.quit ();
-        driver=null;
+        driver = null;
     }
 
 }
